@@ -62,17 +62,13 @@ class MainActivity : AppCompatActivity() {
             override fun onSuccess(statusCode: Int, headers: Headers, json: JSON) {
                 Log.i(TAG, "Successfully fetched campgrounds: $json")
                 try {
-                    // Deserialize JSON into CampgroundResponse
                     val parsedJson = createJson().decodeFromString(
                         CampgroundResponse.serializer(),
                         json.jsonObject.toString()
                     )
 
-                    // Add data to the list if available
                     parsedJson.data?.let { list ->
                         campgrounds.addAll(list)
-
-                        // Notify the adapter to reload the list
                         campgroundAdapter.notifyDataSetChanged()
                     }
                 } catch (e: JSONException) {
