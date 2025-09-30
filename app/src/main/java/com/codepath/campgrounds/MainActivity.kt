@@ -66,10 +66,10 @@ class MainActivity : AppCompatActivity() {
                         CampgroundResponse.serializer(),
                         json.jsonObject.toString()
                     )
-
+                    val oldSize = campgrounds.size
                     parsedJson.data?.let { list ->
                         campgrounds.addAll(list)
-                        campgroundAdapter.notifyDataSetChanged()
+                        campgroundAdapter.notifyItemRangeInserted(oldSize, list.size)
                     }
                 } catch (e: JSONException) {
                     Log.e(TAG, "Exception: $e")
