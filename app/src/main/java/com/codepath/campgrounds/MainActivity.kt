@@ -12,6 +12,7 @@ import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler
 import kotlinx.serialization.json.Json
 import okhttp3.Headers
 import org.json.JSONException
+import org.json.JSONObject
 
 fun createJson() = Json {
     isLenient = true
@@ -59,8 +60,8 @@ class MainActivity : AppCompatActivity() {
                 Log.e(TAG, "Failed to fetch campgrounds: $statusCode")
             }
 
-            override fun onSuccess(statusCode: Int, headers: Headers, json: JSON) {
-                Log.i(TAG, "Successfully fetched campgrounds: $json")
+            override fun onSuccess(statusCode: Int, headers: Headers, json: JsonHttpResponseHandler.JSON){
+            Log.i(TAG, "Successfully fetched campgrounds: $json")
                 try {
                     val parsedJson = createJson().decodeFromString(
                         CampgroundResponse.serializer(),
